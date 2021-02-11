@@ -1,0 +1,606 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Problem Set 1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Problem Set 1}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lalonde <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"lalonde.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{attach}\NormalTok{(lalonde)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Problem 1.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(age[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], age[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  age[treat == 1] and age[treat == 0]
+## t = 1.114, df = 393.11, p-value = 0.2659
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.5830373  2.1077774
+## sample estimates:
+## mean of x mean of y 
+##  25.81622  25.05385
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(education[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], education[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  education[treat == 1] and education[treat == 0]
+## t = 1.4422, df = 340.6, p-value = 0.1502
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.09369118  0.60866000
+## sample estimates:
+## mean of x mean of y 
+##  10.34595  10.08846
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(black[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], black[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  black[treat == 1] and black[treat == 0]
+## t = 0.45778, df = 405.49, p-value = 0.6474
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.05376341  0.08640375
+## sample estimates:
+## mean of x mean of y 
+## 0.8432432 0.8269231
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(hispanic[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], hispanic[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  hispanic[treat == 1] and hispanic[treat == 0]
+## t = -1.8565, df = 440.78, p-value = 0.06404
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.099292780  0.002827084
+## sample estimates:
+##  mean of x  mean of y 
+## 0.05945946 0.10769231
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(married[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], married[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  married[treat == 1] and married[treat == 0]
+## t = 0.96684, df = 375.72, p-value = 0.3342
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.03653566  0.10722173
+## sample estimates:
+## mean of x mean of y 
+## 0.1891892 0.1538462
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(nodegree[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], nodegree[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  nodegree[treat == 1] and nodegree[treat == 0]
+## t = -3.1085, df = 344.86, p-value = 0.002037
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.20655331 -0.04646124
+## sample estimates:
+## mean of x mean of y 
+## 0.7081081 0.8346154
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(re74[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], re74[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  re74[treat == 1] and re74[treat == 0]
+## t = -0.022546, df = 427.58, p-value = 0.982
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1000.9890   978.2857
+## sample estimates:
+## mean of x mean of y 
+##  2095.768  2107.119
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(re75[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], re75[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  re75[treat == 1] and re75[treat == 0]
+## t = 0.86847, df = 387.51, p-value = 0.3857
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -334.5872  864.0482
+## sample estimates:
+## mean of x mean of y 
+##  1531.418  1266.687
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(u74[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], u74[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  u74[treat == 1] and u74[treat == 0]
+## t = -0.97469, df = 384.22, p-value = 0.3303
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.12639685  0.04261307
+## sample estimates:
+## mean of x mean of y 
+## 0.7081081 0.7500000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(u75[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], u75[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  u75[treat == 1] and u75[treat == 0]
+## t = -1.83, df = 383.17, p-value = 0.06803
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.175528468  0.006297699
+## sample estimates:
+## mean of x mean of y 
+## 0.6000000 0.6846154
+\end{verbatim}
+
+a = 0.05
+
+Age: P-value = 0.2659, Fail to reject null hypothesis, cannot conclude
+that a significant difference exists.
+
+Education: P-value = 0.1502, Fail to reject null hypothesis, cannot
+conclude that a significant difference exists.
+
+Black: P-value = P-value = 0.6474, Fail to reject null hypothesis,
+cannot conclude that a significant difference exists.
+
+Hispanic: P-value = 0.06404, Fail to reject null hypothesis, cannot
+conclude that a significant difference exists.
+
+Married: P-value = 0.3342, Fail to reject null hypothesis, cannot
+conclude that a significant difference exists.
+
+No Degree: P-value = 0.002037, Reject null hypothesis, can conclude that
+a significant difference exists.
+
+RE74: P-value = 0.982, Fail to reject null hypothesis, cannot conclude
+that a significant difference exists.
+
+RE75: P-value = 0.3857, Fail to reject null hypothesis, cannot conclude
+that a significant difference exists.
+
+U74: P-value = 0.3303, Fail to reject null hypothesis, cannot conclude
+that a significant difference exists.
+
+U75: P-value = 0.06803, Fail to reject null hypothesis, cannot conclude
+that a significant difference exists.
+
+\textbf{Problem 2.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  re78[treat == 1] and re78[treat == 0]
+## t = 2.673, df = 307.23, p-value = 0.007919
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   473.2551 3113.9627
+## sample estimates:
+## mean of x mean of y 
+##  6348.908  4555.299
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1793.609
+\end{verbatim}
+
+ATE = 1793.609
+
+95\% Confidence interval: (473.2551, 3113.9627)
+
+\textbf{Problem 3.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{&}\StringTok{ }\NormalTok{re74 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re75 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{], re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re74 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re75 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  re78[treat == 1 & re74 == 0 & re75 == 0] and re78[treat == 0 & re74 == 0 & re75 == 0]
+## t = 2.4641, df = 171.84, p-value = 0.01472
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   366.4982 3317.6536
+## sample estimates:
+## mean of x mean of y 
+##  5953.771  4111.695
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{&}\StringTok{ }\NormalTok{re74 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re75 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(re78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re74 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{re75 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1842.076
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_data <-}\StringTok{ }\NormalTok{lalonde[}\KeywordTok{which}\NormalTok{(re74 }\OperatorTok{>}\StringTok{ }\DecValTok{0} \OperatorTok{|}\StringTok{ }\NormalTok{re75 }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{),]}
+\KeywordTok{t.test}\NormalTok{(mod_data}\OperatorTok{$}\NormalTok{re78[mod_data}\OperatorTok{$}\NormalTok{treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], mod_data}\OperatorTok{$}\NormalTok{re78[mod_data}\OperatorTok{$}\NormalTok{treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  mod_data$re78[mod_data$treat == 1] and mod_data$re78[mod_data$treat == 0]
+## t = 1.1889, df = 135.7, p-value = 0.2365
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1000.282  4016.283
+## sample estimates:
+## mean of x mean of y 
+##  6915.618  5407.618
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(mod_data}\OperatorTok{$}\NormalTok{re78[mod_data}\OperatorTok{$}\NormalTok{treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(mod_data}\OperatorTok{$}\NormalTok{re78[mod_data}\OperatorTok{$}\NormalTok{treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1508
+\end{verbatim}
+
+Zero earnings in 1975 and 1974:
+
+ATE = 1842.076
+
+95\% Confidence interval: (366.4982, 3317.6536)
+
+Positive earnings in 1975 or 1974:
+
+ATE = 1508
+
+95\% Confidence interval = (-1000.282, 4016.283)
+
+\textbf{Problem 4.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lalonde}\OperatorTok{$}\NormalTok{pos78 <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(lalonde}\OperatorTok{$}\NormalTok{re78 }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(lalonde}\OperatorTok{$}\NormalTok{pos78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(lalonde}\OperatorTok{$}\NormalTok{pos78[treat }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1106029
+\end{verbatim}
+
+ATE = 0.1106029
+
+\textbf{Problem 5.}
+
+\textbf{i)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prob5 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{6}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{7}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{))}
+\KeywordTok{mean}\NormalTok{(prob5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.095238
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var5 <-}\StringTok{ }\KeywordTok{sum}\NormalTok{((prob5}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{21}\NormalTok{)) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(prob5)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{var5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6575964
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sqrt}\NormalTok{(var5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8109232
+\end{verbatim}
+
+Expected value = 7.095238
+
+Variance = 0.6575964
+
+Standard Deviation = 0.8109232
+
+\textbf{ii)}
+
+Expected value =
+
+\textbf{iii}
+
+\textbf{iv}
+
+\textbf{Problem 6.}
+
+\textbf{i}
+
+80 - 74 = 6
+
+Z-score = 6/20 = 0.3
+
+61.79\% chance that a house will be on the market 80 days or less.
+
+\textbf{ii}
+
+51 - 74 = -23
+
+Z-score = -23/20 = -1.15
+
+87.49\% chance that a house will be on the market more than 50 days.
+
+\textbf{iii}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.Date}\NormalTok{(}\StringTok{"October 1 2016"}\NormalTok{, }\StringTok{"%B %d %Y"}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"August 1 2016"}\NormalTok{, }\StringTok{"%B %d %Y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 61 days
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.Date}\NormalTok{(}\StringTok{"October 31 2016"}\NormalTok{, }\StringTok{"%B %d %Y"}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"August 1 2016"}\NormalTok{, }\StringTok{"%B %d %Y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 91 days
+\end{verbatim}
+
+61 - 74 = -13
+
+Z-score = -13/20 = -0.65
+
+91 - 74 = 17
+
+Z-score = 17/20 = 0.85
+
+54.45\% chance that the house will sell at any time during October of
+2016.
+
+\textbf{iv}
+
+Z-score = -0.44
+
+-0.44*20 = -8.8
+
+-8.8 + 74 = 65.2
+
+The fastest selling 33\% of homes are on the market for 65.2 days.
+
+\textbf{v}
+
+Z-score = 0.77
+
+0.77*20 = 15.4
+
+15.4 + 74 = 89.4
+
+The slowest selling 22\% of homes are on the market for at least 89.4
+days.
+
+\textbf{Problem 7.}
+
+\textbf{i}
+
+\textbf{ii}
+
+\textbf{iii}
+
+\end{document}
