@@ -1,0 +1,155 @@
+---
+title: "Problem Set 2"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval = FALSE}
+lalonde <- read.csv("lalonde.csv", header = TRUE)
+attach(lalonde)
+
+install.packages("lmtest")
+library(lmtest)
+
+install.packages("sandwich")
+library(sandwich)
+```
+
+#### 1.
+
+```{r, eval = FALSE}
+prob1 <- lm(re78 ~ treat)
+summary(prob1)
+```
+
+Average Treatment Effect: 1793.6
+S.E.: 632.9
+Confidence Interval: (553.116, 3034.084)
+
+#### 2.
+
+```{r, eval = FALSE}
+coeftest(prob1, vcov = sandwich)
+```
+
+Average Treatment Effect: 1793.61
+S.E.: 669.33
+Confidence Interval: (481.7232, 3105.4968)
+
+#### 3.
+
+**i)**
+
+True
+
+Given that 
+
+E(u∣X)    =   0,
+
+Definition of Covariance,
+            
+Cov(X,u)    =   E[(X − E[X])(u − E[u])]
+
+=   E[Xu − XE[u] − E[X]u + E[X]E[u]]
+            
+=   E[Xu] − E[X]E[u] − E[X]E[u] + E[X]E[u]
+            
+=   E[Xu] − E[X]E[u]
+            
+=   E[Xu] − E[X]E[E[u∣X]]
+            
+=   E[Xu] − E[X]E[0]
+                
+=   E[Xu]
+            
+=   E[E[Xu∣X]]
+            
+=   E[XE[u∣X]]
+            
+=   E[X*0]
+                
+=   E[0]
+                
+=   0
+
+**ii)**
+
+
+
+Given that 
+
+E[uX] = 0,
+    
+E[u<sup>2</sup>X<sup>2</sup>] = E[u\*u\*X*X]
+
+
+**iii)**
+
+
+
+#### 4.
+
+**i)**
+
+$$\alpha = \frac{(\sum Y)(\sum X^2) - (\sum X)(\sum XY)}{n(\sum X^2) - (\sum X)^2}$$
+
+$$\alpha = \frac{(219.719)(51.075) - (31.47)(349.486)}{24(51.075) - (31.47)^2}$$
+
+$\alpha$ = 0.950664121
+
+$$\beta = \frac{n(\sum XY) - (\sum X)(\sum Y)}{n(\sum X^2) - (\sum X)^2}$$
+
+$$\beta = \frac{24(349.486) - (31.47)(219.719)}{24(51.075) - (31.470)^2}$$
+
+$\beta$ = 6.256849733
+
+**ii)**
+
+u<sub>i</sub> = Y - $\alpha$ - $\beta$X
+
+$$\sum u^2 = \sum (Y - \alpha - \beta X)^2$$
+
+$$= \sum Y^2+\alpha^2n + \beta^2\sum X^2−2(\beta\sum XY - \alpha \beta\sum X + \alpha\sum Y)$$
+
+$$= 2396.504+0.950664121^2*24 + 6.256849733^2*51.075−2(6.256849733*349.486 - 0.950664121*6.256849733*31.470 + 0.950664121*219.719)$$
+
+
+$\sum u^2$ = 0.943644
+
+**iii)**
+
+E[X] = 31.47/24 = 1.31125
+
+E[Y] = 219.719/24 = 9.15495833333
+
+u<sub>i</sub> = Y - $\alpha$ - $\beta$X
+
+= 9.15495833333 - 0.950664121 - 6.256849733*1.31125
+
+u<sub>i</sub> = 0
+
+0.950664121 + 6.256849733*100 - 0
+
+Total Consumption = 626.6356374 thousand pounds
+
+#### 5.
+
+**i)**
+
+Y = $/alpha$ + $/beta$D + u<sub>i</sub>
+
+$/alpha$ = Y - $/beta$D - u<sub>i</sub>
+
+**ii)**
+
+
+
+**iii)**
+
+
