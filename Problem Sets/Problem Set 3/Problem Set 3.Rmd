@@ -1,0 +1,173 @@
+---
+title: "Problem Set 3"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+psid <- read.csv("psid.csv", header = TRUE)
+attach(psid)
+library(lmtest)
+library(sandwich)
+```
+
+#### 1.
+
+```{r}
+psid$u74 <- as.numeric(re74 == 0)
+psid$u75 <- as.numeric(re75 == 0)
+```
+
+#### 2.
+
+```{r}
+mean_stat <- aggregate(psid, by = list(treat), mean)
+sd_stat <- aggregate(psid, by = list(treat), sd)
+stat <- matrix(rep(0, 60), 10, 6)
+stat[,1] <- t(mean_stat[2, -c(1, 2, 3)]) 
+stat[,3] <- t(mean_stat[1, -c(1, 2, 3)]) 
+stat[,2] <- t(sd_stat[2, -c(1, 2, 3)]) 
+stat[,4] <- t(sd_stat[1, -c(1, 2, 3)]) 
+stat[,5] <- stat[,1] - stat[,3]
+stat[,6] <- stat[,5]/sqrt((stat[,2]^2 + stat[,4]^2)/2)
+stat
+```
+
+
+
+#### 3.
+
+```{r}
+reg1 <- lm(re78~treat, data = psid)
+reg2 <- lm(re78~treat + re74 + re75 + u74 + u75, data = psid)
+reg3 <- lm(re78~treat + re74 + re75 + u74 + u75 + education  + married + black + hispanic + age + nodegree, data = psid)
+
+coeftest(reg1, vcov = sandwich)
+coeftest(reg2, vcov = sandwich)
+coeftest(reg3, vcov = sandwich)
+```
+
+The estimate is not robust to the specification, estimated treatment effect is not consistent across specifications.
+
+#### 4.
+
+**i)**
+
+Treatment group mean: (24 + 61)/2 = 42.5
+
+Control group mean: (42 + 33 + 46 + 37)/4 = 39.5
+
+Observed statistic value = 42.5 - 39.5 = 3
+
+**ii)**
+
+Treatment group mean: (24 + 42)/2 = 33
+
+Control group mean: (61 + 33 + 46 + 37)/4 = 44.25
+
+Test statistic = 33 - 44.25 = -11.25
+
+**iii)**
+
+$\frac{6!}{2!(6-2)!} = \frac{6*5}{2*1}$
+
+= 15 different ways of assigning treatment and control
+
+**iv)**
+
+{1, 1, 0, 0, 0, 0} = 3
+
+{1, 0, 1, 0, 0, 0} = -11.25
+
+{1, 0, 0, 1, 0, 0} = -18
+
+{1, 0, 0, 0, 1, 0} = -8.25
+
+{1, 0, 0, 0, 0, 1} = -15
+
+{0, 1, 1, 0, 0, 0} = 16.5
+
+{0, 1, 0, 1, 0, 0} = 9.75
+
+{0, 1, 0, 0, 1, 0} = 19.5
+
+{0, 1, 0, 0, 0, 1} = 12.75
+
+{0, 0, 1, 1, 0, 0} = -4.5
+
+{0, 0, 1, 0, 1, 0} = 5.25
+
+{0, 0, 1, 0, 0, 1} = -1.5
+
+{0, 0, 0, 1, 1, 0} = -1.5
+
+{0, 0, 0, 1, 0, 1} = -8.25
+
+{0, 0, 0, 0, 1, 1} = 1.5
+
+```{r, eval = FALSE}
+distribution <- as.numeric(list(3, -11.25, -18, -8.25, -15, 16.5, 9.75, 19.5, 12.75, -4.5, 5.25, -1.5, -1.5, -8.25, 1.5))
+hist(distribution, breaks = 30)
+```
+
+**v)**
+
+Proportion = 6/15 = 0.4
+
+**vi)**
+
+2-sided p-value = 0.4*2 = 0.8
+
+#### 5.
+
+You cannot estimate the treatment effect correctly by comparing the mean difference since the treatment is not randomly assigned. This makes the presence of confounders and selection bias a serious issue, which would lead to an inaccurate ATE. Some possible confounders are:
+
+- Income/socioeconomic status: Individuals that have a low income might be more likely to smoke. They are unable to afford high quality healthcare, which could lead to a higher disease rate.
+
+- Age: Older individuals might be more likely to smoke. They have a weaker immune system, which could lead to a higher disease rate. 
+
+- Occupation: Individuals that work in high-risk jobs (i.e. construction) might be more likely to smoke. A higher rate of injury while working could lead to a higher disease rate.
+
+#### 6.
+
+**i)**
+
+$$E[Y_i|D_i = 1, x] - E[Y_i|D_i = 0, x] = E[Y_i(1)|D_i = 1, x] - E[Y_i(0)|D_i = 0, x] $$
+
+$$= E[Y_i(1)|D_i = 1, x] - E[Y_i(0)|D_i = 1, x] + E[Y_i(0)|D_i = 1, x] - E[Y_i(0)|D_i = 0, x] $$
+
+$$= E[Y_i(1) - Y_i(0)|D_i = 1, x] + (E[Y_i(0)|D_i = 1, x] - E[Y_i(0)|D_i = 0, x]) $$
+
+where $(E[Y_i(0)|D_i = 1, x] - E[Y_i(0)|D_i = 0, x])$ equals the selection bias 
+
+**ii)**
+
+Selection bias can go away under the unconfoundedness assumption.
+
+#### 7.
+
+**i)**
+
+Old: ATE = 30 - 19 = 11
+
+Mid-aged: ATE = 26 - 21 = 5
+
+Young: ATE = 22 - 18 = 4
+
+**ii)**
+
+Old: 25 + 140 = 165
+
+Mid-aged: 90 + 170 = 260
+
+Young: 235 + 155 = 390
+
+Total: 165 + 260 + 390 = 815
+
+ATE = (165/815)\*11 + (260/815)\*5 + (390/815)*4 = 5.736196

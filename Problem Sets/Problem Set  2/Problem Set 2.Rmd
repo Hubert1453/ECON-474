@@ -1,8 +1,8 @@
 ---
 title: "Problem Set 2"
 output:
-  html_document: default
   word_document: default
+  html_document: default
   pdf_document: default
 ---
 
@@ -80,18 +80,33 @@ Cov(X,u)    =   E[(X − E[X])(u − E[u])]
 
 **ii)**
 
+False
 
-
-Given that 
+For,
 
 E[uX] = 0,
     
-E[u<sup>2</sup>X<sup>2</sup>] = E[u\*u\*X*X]
+unless all values of u = 0, 
 
+E[u<sup>2</sup>X<sup>2</sup>]
+
+will always result in a positive number as both values are being squared.
 
 **iii)**
 
+True
 
+E(u∣X)
+
+E[uX<sup>3</sup>]
+
+= E[E[X<sup>3</sup>u∣X]
+
+= E[X<sup>3</sup>E[u∣X]
+
+= E[X<sup>3</sup>*0]
+
+= 0
 
 #### 4.
 
@@ -142,14 +157,112 @@ Total Consumption = 626.6356374 thousand pounds
 
 **i)**
 
-Y = $/alpha$ + $/beta$D + u<sub>i</sub>
+Given,
 
-$/alpha$ = Y - $/beta$D - u<sub>i</sub>
+$$argmin \sum_{i=1}^{N} (Y - \alpha - \beta D)^2$$
+
+Using the chain rule, where u = $Y - \alpha - \beta D$
+
+we get 
+
+$\frac{dW}{d\alpha} = \sum_{i=1}^{N} -2(Y - \alpha - \beta D) = 0$
+
+and 
+
+$\frac{dW}{d\beta} = \sum_{i=1}^{N} -2D(Y - \alpha - \beta D) = 0$
+
+for $\alpha$,
+
+$\sum_{i=1}^{N} -2(Y - \alpha - \beta D) = 0$
+
+$-2*\sum_{i=1}^{N} (Y - \alpha - \beta D) = 0$
+
+$\sum_{i=1}^{N} (Y - \alpha - \beta D) = 0$
+
+$N(\bar Y - \alpha - \beta \bar D) = 0$
+
+$(\bar Y - \alpha - \beta \bar D) = 0$
+
+$\alpha = \bar Y - \beta \bar D$
+
+for $\beta$,
+
+$\sum_{i=1}^{N} -2D(Y - \alpha - \beta D) = 0$
+
+$-2\sum_{i=1}^{N} D(Y - \alpha - \beta D) = 0$
+
+$\sum_{i=1}^{N} D(Y - \alpha - \beta D) = 0$
+
+$\sum_{i=1}^{N} DY - \alpha D - \beta D^2 = 0$
+
+$\sum_{i=1}^{N} DY - (\bar Y - \beta \bar D)D - \beta D^2 = 0$
+
+$\sum_{i=1}^{N} DY - D\bar Y + \beta \bar DD - \beta D^2 = 0$
+
+$\sum_{i=1}^{N} DY - \sum_{i=1}^{N} D\bar Y + \sum_{i=1}^{N} \beta \bar DD - \sum_{i=1}^{N} \beta D^2 = 0$
+
+$\sum_{i=1}^{N} DY - \bar Y\sum_{i=1}^{N} D + \beta \bar D\sum_{i=1}^{N} D - \beta\sum_{i=1}^{N} D^2 = 0$
+
+$\sum_{i=1}^{N} DY - \bar Y\sum_{i=1}^{N} D = \beta (\sum_{i=1}^{N} D^2 - \bar D\sum_{i=1}^{N} D)$
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \bar Y\sum_{i=1}^{N} D} {\sum_{i=1}^{N} D^2 - \bar D\sum_{i=1}^{N} D}$
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \frac{1}{N}\sum_{i=1}^{N}Y\sum_{i=1}^{N} D} {\sum_{i=1}^{N} D^2 - \frac{1}{N}\sum_{i=1}^{N}D\sum_{i=1}^{N} D}$
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \frac{1}{N}\sum_{i=1}^{N}Y\sum_{i=1}^{N} D} { \sum_{i=1}^{N} D^2 - \frac{1}{N}(\sum_{i=1}^{N}D)^2}$
 
 **ii)**
 
+$\alpha$ is the same
 
+for $\beta$, from the previous problem we had
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \bar Y\sum_{i=1}^{N} D} {\sum_{i=1}^{N} D^2 - \bar D\sum_{i=1}^{N} D}$
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \sum_{i=1}^{N} D\bar Y} {\sum_{i=1}^{N} D^2 - \sum_{i=1}^{N} D\bar D}$
+
+using these steps,
+
+$\sum_{i=1}^{N}(D - \bar D)^2 = \sum_{i=1}^{N}(D^2 - 2D\bar D + \bar D^2)$
+
+$=\sum_{i=1}^{N}D^2 - \sum_{i=1}^{N}2D\bar D + \sum_{i=1}^{N}\bar D^2$
+
+$=\sum_{i=1}^{N}D^2 - 2\bar D\sum_{i=1}^{N}D + \bar D^2\sum_{i=1}^{N}1$
+
+$=\sum_{i=1}^{N}D^2 - 2N\bar D^2 + N\bar D^2$
+
+$=\sum_{i=1}^{N}D^2 - N\bar D^2$
+
+$=\sum_{i=1}^{N}D^2 - \sum_{i=1}^{N}D\bar D$
+
+$\sum_{i=1}^{N}(D - \bar D)(Y - \bar Y) = \sum_{i=1}^{N}(DY - D\bar Y - \bar D Y + \bar D\bar Y)$
+
+$=\sum_{i=1}^{N}DY - \sum_{i=1}^{N}D\bar Y - \sum_{i=1}^{N}\bar D Y + \sum_{i=1}^{N}\bar D\bar Y$
+
+$=\sum_{i=1}^{N}DY - \sum_{i=1}^{N}D\bar Y - \bar D \sum_{i=1}^{N}Y + \bar D\bar Y\sum_{i=1}^{N}1$
+
+$=\sum_{i=1}^{N}DY - \sum_{i=1}^{N}D\bar Y - N\bar D \bar Y  + N\bar D\bar Y$
+
+$=\sum_{i=1}^{N}DY - \sum_{i=1}^{N}D\bar Y$
+
+shows that
+
+$\beta = \frac{\sum_{i=1}^{N} (D - \bar D)(Y - \bar Y)} {\sum_{i=1}^{N} (D - \bar D)^2}$
 
 **iii)**
 
+$\beta = \frac{1}{N_1}\sum_{i=1}^{N}YD - \frac{1}{N_0}\sum_{i=1}^{N}Y(1-D)$
 
+$= \frac{\sum_{i=1}^{N}(YD)}{\sum_{i=1}^{N}D} - \frac{\sum_{i=1}^{N}(Y(1-D))}{\sum_{i=1}^{N}(1-D)}$
+
+$= \frac{\sum_{i=1}^{N}(1-D)\sum_{i=1}^{N}(YD) - \sum_{i=1}^{N}D \sum_{i=1}^{N}(Y(1-D))}{\sum_{i=1}^{N}D\sum_{i=1}^{N}(1-D)}$
+
+$= \frac{N\sum_{i=1}^{N} YD - \sum_{i=1}^{N} D \sum_{i=1}^{N} Y}{N \sum_{i=1}^{N} D - (\sum_{i=1}^{N} D)^2}$
+
+$= \frac{\sum_{i=1}^{N} YD - \frac{1}{N}\sum_{i=1}^{N} D \sum_{i=1}^{N} Y}{\sum_{i=1}^{N} D - \frac{1}{N}(\sum_{i=1}^{N} D)^2}$
+
+$\beta = \frac{\sum_{i=1}^{N} DY - \frac{1}{N}\sum_{i=1}^{N}Y\sum_{i=1}^{N} D} { \sum_{i=1}^{N} D^2 - \frac{1}{N}(\sum_{i=1}^{N}D)^2}$
+
+is equivalent to
+
+$\beta = \frac{\sum_{i=1}^{N} (D - \bar D)(Y - \bar Y)} {\sum_{i=1}^{N} (D - \bar D)^2}$
