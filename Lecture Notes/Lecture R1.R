@@ -1,7 +1,7 @@
 # R1 for ECON 474
 
 # Set up a working directory
-# setwd(C:\Users\hubst\ECON-474\ECON-474)
+# setwd("C:/Users/hubst/ECON-474/ECON-474/Lecture Notes")
 
 # read a file (draft.csv)
 draft_data <- read.csv("draft.csv", header = TRUE)

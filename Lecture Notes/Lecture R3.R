@@ -1,7 +1,7 @@
 # R3 for ECON 474
 
 # Set up a working directory
-# setwd(C:\Users\hubst\ECON-474\ECON-474)
+# setwd("C:/Users/hubst/ECON-474/ECON-474/Lecture Notes")
 
 # read data
 draft_data <- read.csv("lalonde.csv", header = TRUE)

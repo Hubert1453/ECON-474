@@ -1,0 +1,113 @@
+---
+title: "Problem Set 3"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+psid <- read.csv("updated_psid.csv", header = TRUE)
+attach(psid)
+library(MatchIt)
+```
+
+
+#### 1.
+
+```{r}
+logit_out <- glm(treat ~ age+education+black+hispanic+married+nodegree+re74+re75+u74+u75,
+    data = psid, family = binomial(logit))
+psid$propensity <- logit_out$fitted.values
+```
+
+#### 2.
+
+```{r}
+prop_quan <- as.numeric(quantile(psid$propensity[psid$treat == 1], probs = c(0.2, 0.4, 0.6, 0.8)))
+for (i in (1:dim(psid)[1])){
+  if (psid$propensity[i] < prop_quan[1]) psid$class[i] = 1
+  if (psid$propensity[i] >= prop_quan[1] & psid$propensity[i] < prop_quan[2]) psid$class[i] = 2
+  if (psid$propensity[i] >= prop_quan[2] & psid$propensity[i] < prop_quan[3]) psid$class[i] = 3
+  if (psid$propensity[i] >= prop_quan[3] & psid$propensity[i] < prop_quan[4]) psid$class[i] = 4
+  if (psid$propensity[i] >= prop_quan[4]) psid$class[i] = 5
+}
+
+num_tab <- table(psid$class, psid$treat)
+num_tab
+
+mean_gp <- aggregate(psid$re78, by = list(psid$class, psid$treat), mean)
+sd_gp <- aggregate(psid$re78, by = list(psid$class, psid$treat), sd)
+
+catt <- mean_gp[6:10, 3] - mean_gp[1:5, 3]
+se_class <- sqrt(sd_gp[6:10, 3]^2/num_tab[,2] + sd_gp[1:5, 3]^2/num_tab[,1])
+
+catt
+se_class
+```
+
+#### 3.
+
+```{r}
+att <- sum(catt*num_tab[,2]/sum(num_tab[,2]))
+se <- sqrt(sum(se_class^2*(num_tab[,2]/sum(num_tab[,2]))^2))
+```
+
+ATT = -0.6612782
+
+SE = 0.7249132
+
+#### 4.
+
+```{r}
+m_out <- matchit(treat ~ age+education+black+hispanic+married+nodegree+re74+re75+u74+u75,
+        data = psid, method = "subclass", subclass = 5)
+
+psid_pscore <- match.data(m_out)
+
+num_tab <- table(psid_pscore$subclass, psid_pscore$treat)
+
+mean_gp <- aggregate(psid_pscore$re78, by = list(psid_pscore$subclass, psid_pscore$treat), mean)
+
+catt <- mean_gp[6:10, 3] - mean_gp[1:5, 3]
+
+att <- sum(catt*num_tab[,2]/sum(num_tab[,2]))
+```
+
+ATT = -0.6612782
+
+#### 5.
+
+Overall average effect on treated = 
+
+(2.2 - 15.6)\*(22)/112 + (5.1 - 6.3)\*(23)/112 + (2.2 - 5.3)\*(22)/112 + (7.5 - 16.8)\*(22)/112 + (2.3 - 5.1)*(23)/112
+
+= -5.88929
+
+Standard error = 
+
+sqrt((2.9)^2 \*((22)/112)^2 + (3.9)^2 \*((23)/112)^2 + (3.1)^2 \*((22)/112)^2 + (2.8)^2 \*((22)/112)^2 + (3.1)^2 *((23)/112)^2)
+
+= 1.429855
+
+#### 6.
+
+DID estimate = (4.55 - 4.75) - (4.85 - 4.80) = -0.25
+
+#### 7.
+
+**i)**
+
+$\hat γ_{s}$ = 
+
+**ii)**
+
+$\hat λ$ = 
+
+**iii)**
+
+$\hat \alpha_{DID}$ = 
