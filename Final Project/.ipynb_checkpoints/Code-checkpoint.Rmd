@@ -1,0 +1,36 @@
+---
+title: "Code"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Synth)
+
+data <- read.csv("final_project_combined.csv", header = TRUE)
+data <- subset(data, select = -2)
+attach(data)
+dataprep.out <- 
+  dataprep(foo = data,
+           predictors = c("Female Labor Force Participation Rate", "Female", "African American", "Hispanic", "Bachelor's or more", "Manufacturing",  "Agriculture and Mining", "Immigrant", "Poverty Level", "Median Age", "Median Household Income"),
+           predictors.op = "mean",
+           dependent = "Unemployment Rate",
+           unit.variable = "Area",
+           time.variable = "Year",
+           treatment.identifier = 7,
+           controls.identifier = c(1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18),
+           time.predictors.prior = 2013,
+           time.optimize.ssr =  2019,
+           unit.names.variable = "Area Name",
+           time.plot = c(2013, 2019))
+
+syth.out <- synth(dataprep.out)
+synth.out$solution.v
+```
+
+```{r}
+
+```

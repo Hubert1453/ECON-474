@@ -1,0 +1,17 @@
+---
+title: "sdf"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+
+
+$\% BE Sales Change = \frac{- Price Change}{CM + Price Change}$
+
+$-58.97 \% = \frac{- 16.67\%}{11.6\% + 16.67\%}$
